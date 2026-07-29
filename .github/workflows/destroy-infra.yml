@@ -1,0 +1,45 @@
+name: Destroy Infra
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to destroy
+        type: choice
+        options: [dev, prod]
+        default: dev
+        required: true
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  ROLE_ARN: ${{ vars.AWS_ROLE_ARN }}
+  TARGET_ENV: ${{ github.event.inputs.environment || 'dev' }}
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'dev' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate to AWS (OIDC)
+        uses: aws-actions/configure-aws-credentials@v7
+        with:
+          role-to-assume: ${{ env.ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - uses: hashicorp/setup-terraform@v6
+
+      - name: Terraform Destroy
+        run: |
+          cd "terraform/envs/$TARGET_ENV"
+          terraform init -input=false
+          terraform destroy \
+            -var-file=terraform.tfvars \
+            -auto-approve \
+            -input=false
