@@ -14,8 +14,8 @@ ansible_python_interpreter: /usr/bin/python3
 # --- Images to deploy -------------------------------------------------------
 image_tag: "{{ lookup('env', 'IMAGE_TAG') | default('latest', true) }}"
 ecr_registry: "{{ lookup('env', 'ECR_REGISTRY') }}"
-backend_image: "{{ ecr_registry }}/demo-app-{{ env_name }}-backend:{{ image_tag }}"
-frontend_image: "{{ ecr_registry }}/demo-app-{{ env_name }}-frontend:{{ image_tag }}"
+backend_image: "{{ ecr_registry }}/anil-demo-app-{{ env_name }}-backend:{{ image_tag }}"
+frontend_image: "{{ ecr_registry }}/anil-demo-app-{{ env_name }}-frontend:{{ image_tag }}"
 
 # --- DB credentials — straight from GitHub secrets via the environment -------
 db_name: appdb
