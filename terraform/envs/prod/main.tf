@@ -4,9 +4,9 @@
 # ==========================================================================
 
 locals {
-  name = "demo-app-${var.environment}"
+  name = "anil-demo-app-${var.environment}"
   tags = {
-    Project = "demo-app"
+    Project = "anil-demo-app"
     Env     = var.environment
     Managed = "terraform"
   }

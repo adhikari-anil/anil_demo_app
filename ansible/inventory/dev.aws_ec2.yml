@@ -4,7 +4,7 @@
 # follows whatever region you deploy to instead of a hard-coded one.
 plugin: amazon.aws.aws_ec2
 filters:
-  tag:Project: demo-app
+  tag:Project: anil-demo-app
   tag:Env: dev
   instance-state-name: running
 hostnames:
