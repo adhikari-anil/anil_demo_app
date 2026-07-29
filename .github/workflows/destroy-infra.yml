@@ -28,12 +28,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Authenticate to AWS (OIDC)
-        uses: aws-actions/configure-aws-credentials@v7
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ env.ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - uses: hashicorp/setup-terraform@v6
+      - uses: hashicorp/setup-terraform@v4
 
       - name: Terraform Destroy
         run: |
